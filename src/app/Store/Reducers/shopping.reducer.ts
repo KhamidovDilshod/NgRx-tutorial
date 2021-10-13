@@ -1,5 +1,6 @@
 import {ShoppingItem} from "../Model/shopping-list.model";
 import {ShoppingAction, ShoppingActionTypes} from "../Actions/shopping.action";
+import {filter} from "rxjs/operators";
 
 const InitialState: Array<ShoppingItem> = [
   {
@@ -13,6 +14,8 @@ export function ShoppingReducer(state: Array<ShoppingItem> = InitialState, actio
     case ShoppingActionTypes.ADD_ITEM:
       return [...state, action.payload];
     default:
-      return state
+      return state;
+    case ShoppingActionTypes.DELETE_ITEM:
+      return [...state, action.payload]
   }
 }

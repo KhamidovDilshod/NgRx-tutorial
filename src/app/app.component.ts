@@ -1,5 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {isArrayEqual} from "@angular/compiler-cli/src/ngtsc/incremental/semantic_graph";
+// @ts-ignore
+import {AppState} from "./Store/App.state.model";
+import {Store} from "@ngrx/store";
 
 @Component({
   selector: 'app-root',
@@ -13,9 +16,10 @@ export class AppComponent implements OnInit {
   small: any;
   big: any;
 
-  constructor() {
+  constructor( private store:Store<AppState>) {
   }
 
   ngOnInit(): void {
+    this.store.select(store=>store.shopping)
   }
 }
