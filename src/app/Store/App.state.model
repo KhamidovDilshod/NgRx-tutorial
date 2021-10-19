@@ -1,5 +1,0 @@
-import {ShoppingItem} from "./Model/shopping-list.model";
-
-export interface AppState{
-  readonly shopping:Array<ShoppingItem>
-}
