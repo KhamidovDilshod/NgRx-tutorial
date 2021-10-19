@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Store} from "@ngrx/store";
 import {registerAction} from "../../NgRx/action";
+import {HttpClient} from "@angular/common/http";
 
 @Component({
   selector: 'app-register',
@@ -11,8 +12,9 @@ import {registerAction} from "../../NgRx/action";
 export class RegisterComponent implements OnInit {
   // @ts-ignore
   form: FormGroup;
+  detail: any;
 
-  constructor(private fb: FormBuilder,private store:Store) {
+  constructor(private fb: FormBuilder, private store: Store, private http: HttpClient) {
   }
 
   ngOnInit(): void {
@@ -21,12 +23,11 @@ export class RegisterComponent implements OnInit {
       Username: ['', Validators.required],
       password: ['', Validators.required]
     })
-    if(this.form.valid){
+    if (this.form.valid) {
     }
   }
 
   login() {
-
   }
 
   initializeForm() {

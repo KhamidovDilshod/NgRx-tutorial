@@ -8,6 +8,7 @@ import {AuthModule} from "./Auth/Auth.module";
 import {ReactiveFormsModule} from "@angular/forms";
 import {StoreDevtoolsModule} from "@ngrx/store-devtools";
 import {environment} from "../environments/environment";
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import {environment} from "../environments/environment";
     FormsModule,
     RouterModule,
     AuthModule,
+    HttpClientModule,
     ReactiveFormsModule,
     StoreModule.forRoot({}),
     StoreDevtoolsModule.instrument(
@@ -27,7 +29,7 @@ import {environment} from "../environments/environment";
       }
     )
   ],
-  providers: [StoreModule],
+  providers: [StoreModule,HttpClientModule],
   bootstrap: [AppComponent]
 })
 export class AppModule {
