@@ -1,0 +1,7 @@
+<button class="btn btn-success" (click)="increment()">Increment</button>
+<button class="btn btn-danger" (click)="reset()">Reset</button>
+<button class="btn btn-warning" (click)="decrement()">Decrement</button>
+<p>Value:{{(counter$|async)}}</p>
+<input type="text" class="form-control" [(ngModel)]="value" placeholder="Add custom value"/>
+<br>
+<button class="btn btn-success" (click)="add()">Add</button>
