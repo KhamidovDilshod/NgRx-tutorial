@@ -5,3 +5,8 @@
 <input type="text" class="form-control" [(ngModel)]="value" placeholder="Add custom value"/>
 <br>
 <button class="btn btn-success" (click)="add()">Add</button>
+<button class="btn btn-warning" (click)="remove()">Remove</button>
+<input type="text" #username placeholder="Username" class="form-control">
+<input type="text" #token placeholder="Token" class="form-control">
+<input type="text" #isLoggedIn placeholder="LoggedIn" class="form-control">
+<button class="btn btn-secondary" (click)="login(username.value,token.value,isLoggedIn.value)">Login</button>

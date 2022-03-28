@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Store} from "@ngrx/store";
-import {customIncrement, decrement, increment, reset} from "../NgRx/action.types";
+import {customDecrement, customIncrement, decrement, increment, Login, reset} from "../NgRx/action.types";
 import {Observable, Subscription} from "rxjs";
 import {getCounter} from "../NgRx/counter.selector";
 
@@ -16,7 +16,7 @@ export class CounterComponent implements OnInit, OnDestroy {
   value!: number;
 
   constructor(
-    private store: Store<{ counter: { counter: any } }>
+    private store: Store<{ counter: { counter: any }, login: { login: any } }>
   ) {
   }
 
@@ -45,5 +45,13 @@ export class CounterComponent implements OnInit, OnDestroy {
 
   add() {
     this.store.dispatch(customIncrement({value: +this.value}));
+  }
+
+  remove() {
+    this.store.dispatch(customDecrement({value: this.value}))
+  }
+
+  login(username: any, token: any, isLoggedIn: any) {
+    this.store.dispatch(Login({isLoggedIn: isLoggedIn, token: token, username: username}))
   }
 }
