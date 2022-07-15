@@ -49,3 +49,17 @@ export const _loginReducer = createReducer(LoginState,
       username: action.username
     }
   }))
+
+const a = {
+  b: () => {
+
+  },
+  show() {
+
+  }
+};
+a.b()
+
+// function Const(name, surname) {
+//   this.name = name;
+// }

@@ -1,9 +1,9 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Store} from "@ngrx/store";
 import {customDecrement, customIncrement, decrement, increment, Login, reset} from "../NgRx/action.types";
-import {interval, Observable, Subscription} from "rxjs";
-import {getCounter} from "../NgRx/counter.selector";
+import {Observable, Subject, Subscription} from "rxjs";
 import {HttpClient} from "@angular/common/http";
+import {debounceTime, map, switchMap, tap} from "rxjs/operators";
 
 @Component({
   selector: 'app-counter',
@@ -16,17 +16,36 @@ export class CounterComponent implements OnInit, OnDestroy {
   counter$!: Observable<{ counter: number }>
   value!: number;
   posts$!: Observable<any>;
+  result$: Observable<any> = new Observable();
+  searchSubject$: Subject<any> = new Subject<string>();
+  searchString: any;
 
   constructor(
     private store: Store<{ counter: { counter: any }, login: { login: any } }>,
-    private http: HttpClient
+    private http: HttpClient,
   ) {
   }
 
 
   ngOnInit(): void {
-    this.posts$ = this.http.get<any[]>('https://jsonplaceholder.typicode.com/posts')
-    this.counter$ = this.store.select(getCounter);
+    this.result$ = this.searchSubject$
+      .pipe(
+        debounceTime(200),
+        tap(console.log),
+        switchMap(searchString => this.queryAPI(searchString))
+      )
+
+  }
+
+  queryAPI(searchString: any) {
+    return this.http.get<any>(`https://www.reddit.com/search.json?q=${searchString}`)
+      .pipe(
+        map(result => result['data']['children'])
+      )
+  }
+
+  inputChanged($event: any) {
+    this.searchSubject$.next($event)
   }
 
   decrement() {
@@ -47,6 +66,13 @@ export class CounterComponent implements OnInit, OnDestroy {
     }
   }
 
+  closure(name: string) {
+    return (surname: string) => {
+      return name + surname
+    }
+  }
+
+
   add() {
     this.store.dispatch(customIncrement({value: +this.value}));
   }
@@ -58,6 +84,7 @@ export class CounterComponent implements OnInit, OnDestroy {
   login(username: any, token: any, isLoggedIn: any) {
     this.store.dispatch(Login({isLoggedIn: isLoggedIn, token: token, username: username}))
   }
+
 }
 
 const timeStamp = (): Observable<any> => {
